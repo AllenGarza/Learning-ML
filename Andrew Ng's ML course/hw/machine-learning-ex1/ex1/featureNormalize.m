@@ -1,5 +1,5 @@
 function [X_norm, mu, sigma] = featureNormalize(X)
-%FEATURENORMALIZE Normalizes the features in X 
+% 
 %   FEATURENORMALIZE(X) returns a normalized version of X where
 %   the mean value of each feature is 0 and the standard deviation
 %   is 1. This is often a good preprocessing step to do when
@@ -7,7 +7,7 @@ function [X_norm, mu, sigma] = featureNormalize(X)
 
 % You need to set these values correctly
 X_norm = X;
-mu = zeros(1, size(X, 2));
+mu = zeros(1, size(X, 2))
 sigma = zeros(1, size(X, 2));
 
 % ====================== YOUR CODE HERE ======================
@@ -25,6 +25,23 @@ sigma = zeros(1, size(X, 2));
 %
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
+
+mu = sum(X) / length(X);
+sigma = std(X);
+
+%%we turn mu and sigma into matrices whos dimensions match X, so that
+%%we can utilize vectorization
+
+%% recall, size(matrix, 1ForRow xor  2ForColumn)
+%% recall, repmat(elementsOfMatrix, Desired Row, Desired Column)
+
+MU = repmat(mu, size(X, 1), 1);
+SIGMA = repmat(sigma, size(X, 1), 1);
+
+X_norm = (X - MU) ./ SIGMA;
+
+
+
 
 
 
